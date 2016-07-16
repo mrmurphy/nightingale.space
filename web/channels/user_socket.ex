@@ -3,6 +3,7 @@ defmodule Nightingale.UserSocket do
 
   ## Channels
   # channel "rooms:*", Nightingale.RoomChannel
+  channel "tweets:lobby", Nightingale.TweetsChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
