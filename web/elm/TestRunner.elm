@@ -1,13 +1,13 @@
 module TestRunner exposing (..)
 
 import ElmTest exposing (..)
-import Parser exposing (..)
+import Parser.Tests
 
 
 tests : Test
 tests =
-    suite "Parser"
-        [ test "Has a foo" (assertEqual "bar" foo)
+    suite "All"
+        [ Parser.Tests.tests
         ]
 
 
