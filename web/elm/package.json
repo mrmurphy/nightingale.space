@@ -1,0 +1,12 @@
+{
+  "name": "elm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "elm-make TestRunner.elm --yes --output _tests.js && node _tests.js",
+    "test:watch": "nodemon --exec 'elm-make TestRunner.elm --yes --output _tests.js && node _tests.js' --ext elm"
+  },
+  "author": "",
+  "license": "ISC"
+}

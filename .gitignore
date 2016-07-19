@@ -4,6 +4,7 @@
 /deps
 /*.ez
 .DS_Store
+/web/elm/_tests.js
 
 # Generate on crash by the VM
 erl_crash.dump
