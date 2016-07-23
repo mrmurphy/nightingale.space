@@ -64,6 +64,12 @@ G4G4F4F4E4E4D5G4G4F4F4E4E4D5
 C4C4G4G4A4A4G5F4F4E4E4D4D4C5
 ```
 
+This structure can be captured with the following Regex:
+
+```javascript
+/([a-gA-G_]).*?([+-])?.*?([1-6])?.*?([0-8])?/
+```
+
 ## The Decoding
 
 A song is a list of notes, and a note looks like this:
