@@ -16,12 +16,18 @@ notNoteRegex =
     "[^a-gA-G_]*"
 
 
+hashtagRegex =
+    "#ngale"
+
+
 parse : Combine.Context -> ( Maybe Note, Combine.Context )
 parse context =
     let
         noteStrParser : Combine.Parser String
         noteStrParser =
-            (Combine.regex noteRegex) <|> (Combine.regex notNoteRegex)
+            (Combine.map (always "") (Combine.regex hashtagRegex))
+                <|> (Combine.regex noteRegex)
+                <|> (Combine.regex notNoteRegex)
 
         ( noteResult, newContext ) =
             Combine.parse noteStrParser context.input
@@ -31,7 +37,7 @@ parse context =
                 ( Nothing, newContext )
 
             Ok noteStr ->
-                ( fromString noteStr context.position (context.position + newContext.position), newContext )
+                ( fromString noteStr context.position (context.position + newContext.position), { input = newContext.input, position = newContext.position + context.position } )
 
 
 maybeStringToInt : Maybe String -> Int -> Int

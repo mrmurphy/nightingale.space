@@ -89,6 +89,20 @@ withIgnorables =
     )
 
 
+withHashtag =
+    ( "#ngale A+1"
+    , [ Note
+            { letter = "A"
+            , accidental = Just Sharp
+            , octave = 3
+            , length = 1
+            , parseStart = 7
+            , parseEnd = 10
+            }
+      ]
+    )
+
+
 makeTest : String -> ( String, List Note ) -> Test
 makeTest name ( src, res ) =
     test name <| assertEqual res (notes src)
@@ -103,4 +117,5 @@ tests =
         , makeTest "With only length" onlyLength
         , makeTest "With length and octave" lengthAndOctave
         , makeTest "With other characters" withIgnorables
+        , makeTest "With hashtag" withHashtag
         ]
