@@ -6,12 +6,12 @@ import Parser exposing (notes)
 
 
 allParts =
-    ( "A+12"
+    ( "A+e2"
     , [ Note
             { letter = "A"
             , accidental = Just Sharp
             , octave = 2
-            , length = 1
+            , length = "e"
             , parseStart = 0
             , parseEnd = 4
             }
@@ -20,12 +20,12 @@ allParts =
 
 
 space =
-    ( "_2"
+    ( "_h"
     , [ Note
             { letter = "_"
             , accidental = Nothing
             , octave = 3
-            , length = 2
+            , length = "h"
             , parseStart = 0
             , parseEnd = 2
             }
@@ -39,7 +39,7 @@ onlyAccidental =
             { letter = "A"
             , accidental = Just Flat
             , octave = 3
-            , length = 2
+            , length = "s"
             , parseStart = 0
             , parseEnd = 2
             }
@@ -48,12 +48,12 @@ onlyAccidental =
 
 
 onlyLength =
-    ( "A6"
+    ( "Aw"
     , [ Note
             { letter = "A"
             , accidental = Nothing
             , octave = 3
-            , length = 6
+            , length = "w"
             , parseStart = 0
             , parseEnd = 2
             }
@@ -62,12 +62,12 @@ onlyLength =
 
 
 lengthAndOctave =
-    ( "A41"
+    ( "Aq1"
     , [ Note
             { letter = "A"
             , accidental = Nothing
             , octave = 1
-            , length = 4
+            , length = "q"
             , parseStart = 0
             , parseEnd = 3
             }
@@ -76,12 +76,12 @@ lengthAndOctave =
 
 
 withIgnorables =
-    ( "uA4 uuuuh 1"
+    ( "uAq uuuuh 1"
     , [ Note
             { letter = "A"
             , accidental = Nothing
             , octave = 3
-            , length = 4
+            , length = "q"
             , parseStart = 1
             , parseEnd = 3
             }
@@ -90,12 +90,12 @@ withIgnorables =
 
 
 withHashtag =
-    ( "#ngale A+1"
+    ( "#ngale A+t"
     , [ Note
             { letter = "A"
             , accidental = Just Sharp
             , octave = 3
-            , length = 1
+            , length = "t"
             , parseStart = 7
             , parseEnd = 10
             }

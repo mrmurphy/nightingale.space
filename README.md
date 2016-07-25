@@ -33,13 +33,13 @@ To play a note, the user types the following:
 
 - A letter, optionally followed by a `+` (for a sharp), or a `-` (for a flat)
   or the _ character, to indicate a rest
-- Optionally a number, 1-6, defining the length of the note. The default being 2, where
-  - 1 = 32nd note
-  - 2 = 16th note
-  - 3 = 8th note
-  - 4 = Quarter note
-  - 5 = Half note
-  - 6 = Whole note
+- Optionally a letter defining the length of the note. If unspecified, "s" will be assumed.
+  - t = 32nd note
+  - s = 16th note
+  - e = 8th note
+  - q = Quarter note
+  - h = Half note
+  - w = Whole note
 - Optionally a number, 0-8, defining the octave in which the note should be played, the default
   being 3
 
@@ -51,17 +51,17 @@ example, notes are separated by spaces, and bars by... bars. But that will all b
 parser. It's just there for the sake of readability.
 
 ```
-C4 C4 G4 G4 | A4 A4 G5 | F4 F4 E4 E4 | D4 D4 C5
-G4 G4 F4 F4 | E4 E4 D5 | G4 G4 F4 F4 | E4 E4 D5
-C4 C4 G4 G4 | A4 A4 G5 | F4 F4 E4 E4 | D4 D4 C5
+C C G G | A A Gq | F F E E | D D Cq
+G G F F | E E Dq | G G F F | E E Dq
+C C G G | A A Gq | F F E E | D D Cq
 ```
 
 And, in a more compact format:
 
 ```
-C4C4G4G4A4A4G5F4F4E4E4D4D4C5
-G4G4F4F4E4E4D5G4G4F4F4E4E4D5
-C4C4G4G4A4A4G5F4F4E4E4D4D4C5
+CCGGAAGqFFEEDDCq
+GGFFEEDqGGFFEEDq
+CCGGAAGqFFEEDDCq
 ```
 
 This structure can be captured with the following Regex:

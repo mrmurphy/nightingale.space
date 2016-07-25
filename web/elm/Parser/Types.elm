@@ -15,7 +15,7 @@ type Note
         { letter : String
         , accidental : Maybe Accidental
         , octave : Int
-        , length : Int
+        , length : String
         , parseStart : Int
         , parseEnd : Int
         }

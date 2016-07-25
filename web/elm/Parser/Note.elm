@@ -9,7 +9,7 @@ import String
 
 
 noteRegex =
-    "([a-gA-G_]).*?([+-])?.*?([1-6])?.*?([0-8])?"
+    "([a-gA-G_]).*?([+-])?.*?([tseqhwTSEQHW])?.*?([0-8])?"
 
 
 notNoteRegex =
@@ -80,7 +80,7 @@ fromString str start end =
                                     { letter = Maybe.withDefault "?bad note" letter
                                     , accidental = accidental `Maybe.andThen` stringToAccidental
                                     , octave = maybeStringToInt octave 3
-                                    , length = maybeStringToInt length 2
+                                    , length = Maybe.withDefault "s" length
                                     , parseStart = start
                                     , parseEnd = end
                                     }
