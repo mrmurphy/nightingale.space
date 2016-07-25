@@ -6,6 +6,10 @@ type Accidental
     | Flat
 
 
+
+-- TODO: Move Note and Accidental into the Notes.elm file
+
+
 type Note
     = Note
         { letter : String

@@ -12,8 +12,9 @@ defmodule Nightingale.TweetsChannel do
   end
 
   def handle_info(:after_join, socket) do
-    broadcast socket, "tweet", %{text: "I am blah blah blah", author: "splodingsocks", pic: ""}
-    broadcast socket, "tweet", %{text: "Two?", author: "splodingsocks", pic: ""}
+    broadcast socket, "tweet", %{text: "#ngale C4 C4 G4 G4 | A4 A4 G5 | F4 F4 E4 E4 | D4 D4 C5", author: "splodingsocks", pic: "https://pbs.twimg.com/profile_images/631543155909767169/xw4_RWw8.jpg"}
+    broadcast socket, "tweet", %{text: "#ngale G4 G4 F4 F4 | E4 E4 D5 | G4 G4 F4 F4 | E4 E4 D5", author: "splodingsocks", pic: "https://pbs.twimg.com/profile_images/631543155909767169/xw4_RWw8.jpg"}
+    broadcast socket, "tweet", %{text: "#ngale C4 C4 G4 G4 | A4 A4 G5 | F4 F4 E4 E4 | D4 D4 C5", author: "splodingsocks", pic: "https://pbs.twimg.com/profile_images/631543155909767169/xw4_RWw8.jpg"}
     {:noreply, socket}
   end
 

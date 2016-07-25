@@ -1,16 +1,18 @@
 module Main exposing (..)
 
+import Cmd.Extra exposing (message)
 import Html exposing (Html, h3, div, text, ul, li, input, form, button, br, table, tbody, tr, td)
+import Html.App
 import Html.Attributes exposing (type', value)
 import Html.Events exposing (onInput, onSubmit, onClick)
-import Html.App
-import Platform.Cmd
-import Phoenix.Socket
+import Json.Decode as JD exposing ((:=))
+import Json.Encode as JE
+import Parser.Types exposing (Note)
 import Phoenix.Channel
 import Phoenix.Push
-import Json.Encode as JE
-import Json.Decode as JD exposing ((:=))
-import Cmd.Extra exposing (message)
+import Phoenix.Socket
+import Platform.Cmd
+import Tweet exposing (Tweet, tweetDecoder)
 
 
 -- MAIN
@@ -44,13 +46,12 @@ type Msg
     | ReceiveTweet JE.Value
     | JoinChannel
     | LeaveChannel
-    | ShowJoinedMessage String
-    | ShowLeftMessage String
     | NoOp
 
 
 type alias Model =
-    { messages : List String
+    { queue : List Tweet
+    , playing : Maybe Note
     , phxSocket : Phoenix.Socket.Socket Msg
     }
 
@@ -64,7 +65,7 @@ initPhxSocket =
 
 initModel : Model
 initModel =
-    Model [] initPhxSocket
+    Model [] Nothing initPhxSocket
 
 
 init : ( Model, Cmd Msg )
@@ -79,21 +80,6 @@ init =
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Phoenix.Socket.listen model.phxSocket PhoenixMsg
-
-
-type alias Tweet =
-    { author : String
-    , text : String
-    , pic : String
-    }
-
-
-tweetDecoder : JD.Decoder Tweet
-tweetDecoder =
-    JD.object3 Tweet
-        ("author" := JD.string)
-        ("text" := JD.string)
-        ("pic" := JD.string)
 
 
 
@@ -113,13 +99,13 @@ update msg model =
                 )
 
         ReceiveTweet raw ->
-            case JD.decodeValue tweetDecoder raw of
-                Ok tweetBody ->
+            case JD.decodeValue (tweetDecoder (List.length model.queue)) raw of
+                Ok tweet ->
                     let
                         _ =
-                            Debug.log "got a tweet" tweetBody
+                            Debug.log "got a tweet" tweet
                     in
-                        ( { model | messages = (toString tweetBody) :: model.messages }
+                        ( { model | queue = tweet :: model.queue }
                         , Cmd.none
                         )
 
@@ -134,8 +120,6 @@ update msg model =
             let
                 channel =
                     Phoenix.Channel.init "tweets:lobby"
-                        |> Phoenix.Channel.onJoin (always (ShowJoinedMessage "tweets:lobby"))
-                        |> Phoenix.Channel.onClose (always (ShowLeftMessage "tweets:lobby"))
 
                 ( phxSocket, phxCmd ) =
                     Phoenix.Socket.join channel model.phxSocket
@@ -153,16 +137,6 @@ update msg model =
                 , Cmd.map PhoenixMsg phxCmd
                 )
 
-        ShowJoinedMessage channelName ->
-            ( { model | messages = ("Joined channel " ++ channelName) :: model.messages }
-            , Cmd.none
-            )
-
-        ShowLeftMessage channelName ->
-            ( { model | messages = ("Left channel " ++ channelName) :: model.messages }
-            , Cmd.none
-            )
-
         NoOp ->
             ( model, Cmd.none )
 
@@ -175,10 +149,10 @@ view : Model -> Html Msg
 view model =
     div []
         [ h3 [] [ text "Messages:" ]
-        , ul [] ((List.reverse << List.map renderMessage) model.messages)
+        , ul [] ((List.reverse << List.map renderTweet) model.queue)
         ]
 
 
-renderMessage : String -> Html Msg
-renderMessage str =
-    li [] [ text str ]
+renderTweet : Tweet -> Html Msg
+renderTweet tweet =
+    li [] [ text <| toString tweet ]

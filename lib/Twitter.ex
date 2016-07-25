@@ -1,8 +1,7 @@
 defmodule Twitter do
   def reader(dest) do
     fn ->
-      # topics = "#ngspc"
-      topics = "javascript"
+      topics = "#ngale"
       stream = ExTwitter.stream_filter(track: topics, timeout: :infinity)
         |> Stream.map(fn x ->
           %{:text => x.text, :author => x.user.name, :pic => x.user.profile_image_url} end)
