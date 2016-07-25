@@ -1,7 +1,7 @@
 module Tweet exposing (..)
 
-import Parser.Types exposing (Note)
-import Parser exposing (notes)
+import Note exposing (Note)
+import Note.Parser exposing (notes)
 import Json.Decode as JD exposing ((:=))
 
 

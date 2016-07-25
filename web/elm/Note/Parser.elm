@@ -1,8 +1,8 @@
-module Parser.Note exposing (fromString, parse)
+module Note.Parser exposing (notes)
 
 import Combine
 import Combine.Infix exposing ((<|>))
-import Parser.Types exposing (Note(Note), Accidental(Sharp, Flat))
+import Note exposing (Note(Note), Accidental(Sharp, Flat))
 import Regex exposing (regex)
 import Maybe.Extra
 import String
@@ -92,3 +92,26 @@ fromString str start end =
 
             [] ->
                 Nothing
+
+
+notes : String -> List Note
+notes str =
+    let
+        body context =
+            case context.input of
+                "" ->
+                    []
+
+                more ->
+                    let
+                        ( maybeNote, newContext ) =
+                            parse { input = context.input, position = context.position }
+                    in
+                        case maybeNote of
+                            Nothing ->
+                                body newContext
+
+                            Just note ->
+                                note :: (body newContext)
+    in
+        body { input = str, position = 0 }

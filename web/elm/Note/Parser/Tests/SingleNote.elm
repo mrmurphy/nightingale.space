@@ -1,8 +1,8 @@
-module Parser.Tests.SingleNote exposing (..)
+module Note.Parser.Tests.SingleNote exposing (..)
 
 import ElmTest exposing (..)
-import Parser.Types exposing (Accidental(Sharp, Flat), Note(Note))
-import Parser exposing (notes)
+import Note exposing (Accidental(Sharp, Flat), Note(Note))
+import Note.Parser exposing (notes)
 
 
 allParts =

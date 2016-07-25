@@ -1,13 +1,13 @@
 module TestRunner exposing (..)
 
 import ElmTest exposing (..)
-import Parser.Tests
+import Note.Tests
 
 
 tests : Test
 tests =
     suite "All"
-        [ Parser.Tests.tests
+        [ Note.Tests.tests
         ]
 
 

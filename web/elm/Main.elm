@@ -7,7 +7,7 @@ import Html.Attributes exposing (type', value)
 import Html.Events exposing (onInput, onSubmit, onClick)
 import Json.Decode as JD exposing ((:=))
 import Json.Encode as JE
-import Parser.Types exposing (Note)
+import Note exposing (Note)
 import Phoenix.Channel
 import Phoenix.Push
 import Phoenix.Socket
