@@ -1,4 +1,4 @@
-module Main exposing (..)
+port module Main exposing (..)
 
 import Cmd.Extra exposing (message)
 import Html exposing (Html, h3, div, text, ul, li, input, form, button, br, table, tbody, tr, td)
@@ -12,6 +12,7 @@ import Phoenix.Channel
 import Phoenix.Push
 import Phoenix.Socket
 import Platform.Cmd
+import Player
 import Tweet exposing (Tweet, tweetDecoder)
 
 
@@ -47,11 +48,11 @@ type Msg
     | JoinChannel
     | LeaveChannel
     | NoOp
+    | PlayerMsg Player.Msg
 
 
 type alias Model =
-    { queue : List Tweet
-    , playing : Maybe Note
+    { player : Player.Model
     , phxSocket : Phoenix.Socket.Socket Msg
     }
 
@@ -65,12 +66,12 @@ initPhxSocket =
 
 initModel : Model
 initModel =
-    Model [] Nothing initPhxSocket
+    Model Player.init initPhxSocket
 
 
 init : ( Model, Cmd Msg )
 init =
-    initModel ! [ message JoinChannel ]
+    initModel ! [ message JoinChannel, Player.initCmds ]
 
 
 
@@ -99,14 +100,17 @@ update msg model =
                 )
 
         ReceiveTweet raw ->
-            case JD.decodeValue (tweetDecoder (List.length model.queue)) raw of
+            case JD.decodeValue (tweetDecoder (List.length model.player.queue)) raw of
                 Ok tweet ->
                     let
                         _ =
                             Debug.log "got a tweet" tweet
+
+                        ( playerMdl, playerCmds ) =
+                            Player.update (Player.GotTweet tweet) model.player
                     in
-                        ( { model | queue = tweet :: model.queue }
-                        , Cmd.none
+                        ( { model | player = playerMdl }
+                        , Cmd.map PlayerMsg playerCmds
                         )
 
                 Err error ->
@@ -115,6 +119,13 @@ update msg model =
                             Debug.crash error
                     in
                         ( model, Cmd.none )
+
+        PlayerMsg msg ->
+            let
+                ( playerMdl, playerCmds ) =
+                    Player.update msg model.player
+            in
+                ( { model | player = playerMdl }, Cmd.map PlayerMsg playerCmds )
 
         JoinChannel ->
             let
@@ -148,11 +159,6 @@ update msg model =
 view : Model -> Html Msg
 view model =
     div []
-        [ h3 [] [ text "Messages:" ]
-        , ul [] ((List.reverse << List.map renderTweet) model.queue)
+        [ h3 [] [ text "Player:" ]
+        , Html.App.map PlayerMsg <| Player.view model.player
         ]
-
-
-renderTweet : Tweet -> Html Msg
-renderTweet tweet =
-    li [] [ text <| toString tweet ]
