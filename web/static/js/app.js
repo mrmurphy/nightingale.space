@@ -22,5 +22,8 @@ import "phoenix_html"
 import Elm from './main';
 const elmDiv = document.querySelector('#elm-target');
 if (elmDiv) {
-  Elm.Main.embed(elmDiv);
+  const app = Elm.Main.embed(elmDiv);
+  app.ports.play.subscribe(idAndNote => {
+    console.log('Will play', idAndNote)
+  })
 }

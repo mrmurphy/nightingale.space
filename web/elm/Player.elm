@@ -71,7 +71,8 @@ update msg model =
             { model | playing = Just playing } ! []
 
         GotTweet tweet ->
-            { model | queue = List.reverse (tweet :: (List.reverse model.queue)) } ! []
+            { model | queue = List.reverse (tweet :: (List.reverse model.queue)) }
+                ! (List.map (\n -> play ( tweet.id, Note.toPortNote n )) tweet.notes)
 
 
 

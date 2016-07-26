@@ -27,7 +27,7 @@ type alias PortNote =
     }
 
 
-toPortNote note =
+toPortNote (Note note) =
     { letter = note.letter
     , accidental =
         case note.accidental of
