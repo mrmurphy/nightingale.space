@@ -21,4 +21,4 @@ tweetDecoder id =
         ("author" := JD.string)
         ("text" := JD.string)
         ("pic" := JD.string)
-        (JD.map notes ("text" := JD.string))
+        (JD.map (notes id) ("text" := JD.string))

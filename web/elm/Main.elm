@@ -89,7 +89,7 @@ subscriptions model =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case Debug.log "msg" msg of
+    case msg of
         PhoenixMsg msg ->
             let
                 ( phxSocket, phxCmd ) =
@@ -103,9 +103,6 @@ update msg model =
             case JD.decodeValue (tweetDecoder (List.length model.player.queue)) raw of
                 Ok tweet ->
                     let
-                        _ =
-                            Debug.log "got a tweet" tweet
-
                         ( playerMdl, playerCmds ) =
                             Player.update (Player.GotTweet tweet) model.player
                     in

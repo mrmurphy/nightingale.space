@@ -8,7 +8,8 @@ type Accidental
 
 type Note
     = Note
-        { letter : String
+        { tweetId : Int
+        , letter : String
         , accidental : Maybe Accidental
         , octave : Int
         , length : String
@@ -18,7 +19,8 @@ type Note
 
 
 type alias PortNote =
-    { letter : String
+    { tweetId : Int
+    , letter : String
     , accidental : Maybe String
     , octave : Int
     , length : String
@@ -28,7 +30,8 @@ type alias PortNote =
 
 
 toPortNote (Note note) =
-    { letter = note.letter
+    { tweetId = note.tweetId
+    , letter = note.letter
     , accidental =
         case note.accidental of
             Just Sharp ->

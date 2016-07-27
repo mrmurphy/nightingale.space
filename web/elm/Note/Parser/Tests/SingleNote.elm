@@ -8,7 +8,8 @@ import Note.Parser exposing (notes)
 allParts =
     ( "A+e2"
     , [ Note
-            { letter = "A"
+            { tweetId = 0
+            , letter = "A"
             , accidental = Just Sharp
             , octave = 2
             , length = "e"
@@ -22,7 +23,8 @@ allParts =
 space =
     ( "_h"
     , [ Note
-            { letter = "_"
+            { tweetId = 0
+            , letter = "_"
             , accidental = Nothing
             , octave = 3
             , length = "h"
@@ -36,7 +38,8 @@ space =
 onlyAccidental =
     ( "A-"
     , [ Note
-            { letter = "A"
+            { tweetId = 0
+            , letter = "A"
             , accidental = Just Flat
             , octave = 3
             , length = "s"
@@ -50,7 +53,8 @@ onlyAccidental =
 onlyLength =
     ( "Aw"
     , [ Note
-            { letter = "A"
+            { tweetId = 0
+            , letter = "A"
             , accidental = Nothing
             , octave = 3
             , length = "w"
@@ -64,7 +68,8 @@ onlyLength =
 lengthAndOctave =
     ( "Aq1"
     , [ Note
-            { letter = "A"
+            { tweetId = 0
+            , letter = "A"
             , accidental = Nothing
             , octave = 1
             , length = "q"
@@ -78,7 +83,8 @@ lengthAndOctave =
 withIgnorables =
     ( "uAq uuuuh 1"
     , [ Note
-            { letter = "A"
+            { tweetId = 0
+            , letter = "A"
             , accidental = Nothing
             , octave = 3
             , length = "q"
@@ -92,7 +98,8 @@ withIgnorables =
 withHashtag =
     ( "#ngale A+t"
     , [ Note
-            { letter = "A"
+            { tweetId = 0
+            , letter = "A"
             , accidental = Just Sharp
             , octave = 3
             , length = "t"
@@ -105,7 +112,7 @@ withHashtag =
 
 makeTest : String -> ( String, List Note ) -> Test
 makeTest name ( src, res ) =
-    test name <| assertEqual res (notes src)
+    test name <| assertEqual res (notes 0 src)
 
 
 tests : Test

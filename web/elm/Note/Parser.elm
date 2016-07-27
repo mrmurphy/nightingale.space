@@ -20,8 +20,8 @@ hashtagRegex =
     "#ngale"
 
 
-parse : Combine.Context -> ( Maybe Note, Combine.Context )
-parse context =
+parse : Int -> Combine.Context -> ( Maybe Note, Combine.Context )
+parse tweetId context =
     let
         noteStrParser : Combine.Parser String
         noteStrParser =
@@ -37,7 +37,7 @@ parse context =
                 ( Nothing, newContext )
 
             Ok noteStr ->
-                ( fromString noteStr context.position (context.position + newContext.position), { input = newContext.input, position = newContext.position + context.position } )
+                ( fromString noteStr tweetId context.position (context.position + newContext.position), { input = newContext.input, position = newContext.position + context.position } )
 
 
 maybeStringToInt : Maybe String -> Int -> Int
@@ -63,8 +63,8 @@ stringToAccidental string =
             Nothing
 
 
-fromString : String -> Int -> Int -> Maybe Note
-fromString str start end =
+fromString : String -> Int -> Int -> Int -> Maybe Note
+fromString str tweetId start end =
     let
         matches =
             Regex.find (Regex.AtMost 1) (Regex.regex noteRegex) str
@@ -77,7 +77,8 @@ fromString str start end =
                             note : Note
                             note =
                                 Note
-                                    { letter = Maybe.withDefault "?bad note" letter
+                                    { tweetId = tweetId
+                                    , letter = Maybe.withDefault "?bad note" letter
                                     , accidental = accidental `Maybe.andThen` stringToAccidental
                                     , octave = maybeStringToInt octave 3
                                     , length = Maybe.withDefault "s" length
@@ -94,8 +95,8 @@ fromString str start end =
                 Nothing
 
 
-notes : String -> List Note
-notes str =
+notes : Int -> String -> List Note
+notes tweetId str =
     let
         body context =
             case context.input of
@@ -105,7 +106,7 @@ notes str =
                 more ->
                     let
                         ( maybeNote, newContext ) =
-                            parse { input = context.input, position = context.position }
+                            parse tweetId { input = context.input, position = context.position }
                     in
                         case maybeNote of
                             Nothing ->

@@ -5,21 +5,13 @@ import Tweet exposing (Tweet)
 import Html exposing (div, h1, text, Html, p)
 
 
-type alias Playing =
-    { tweetId : Int
-    , highlightStart : Int
-    , highlightEnd : Int
-    }
-
-
-
 -- PORTS
 
 
-port play : ( Int, PortNote ) -> Cmd msg
+port play : PortNote -> Cmd msg
 
 
-port playing : (Playing -> msg) -> Sub msg
+port playing : (Maybe PortNote -> msg) -> Sub msg
 
 
 
@@ -27,7 +19,7 @@ port playing : (Playing -> msg) -> Sub msg
 
 
 type Msg
-    = ShowPlaying Playing
+    = ShowPlaying (Maybe PortNote)
     | GotTweet Tweet
 
 
@@ -36,7 +28,7 @@ type Msg
 
 
 type alias Model =
-    { playing : Maybe Playing
+    { playing : Maybe PortNote
     , queue : List Tweet
     }
 
@@ -68,11 +60,11 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         ShowPlaying playing ->
-            { model | playing = Just playing } ! []
+            { model | playing = playing } ! []
 
         GotTweet tweet ->
             { model | queue = List.reverse (tweet :: (List.reverse model.queue)) }
-                ! (List.map (\n -> play ( tweet.id, Note.toPortNote n )) tweet.notes)
+                ! (List.map (\n -> play (Note.toPortNote n)) tweet.notes)
 
 
 
