@@ -11,7 +11,7 @@ const lengthLookup = {
   'Q': '4n',
   'h': '2n',
   'H': '2n',
-  'w': '1m'
+  'w': '1m',
   'W': '1m'
 }
 
