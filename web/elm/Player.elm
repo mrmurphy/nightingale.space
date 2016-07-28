@@ -8,7 +8,7 @@ import Html exposing (div, h1, text, Html, p)
 -- PORTS
 
 
-port play : PortNote -> Cmd msg
+port play : List PortNote -> Cmd msg
 
 
 port playing : (Maybe PortNote -> msg) -> Sub msg
@@ -64,7 +64,7 @@ update msg model =
 
         GotTweet tweet ->
             { model | queue = List.reverse (tweet :: (List.reverse model.queue)) }
-                ! (List.map (\n -> play (Note.toPortNote n)) tweet.notes)
+                ! [ play (List.map Note.toPortNote tweet.notes) ]
 
 
 

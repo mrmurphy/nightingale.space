@@ -18,11 +18,19 @@ import "phoenix_html"
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
-import Elm from './main';
+import Elm from './main'
+import Player from './player'
+
 const elmDiv = document.querySelector('#elm-target');
+
 if (elmDiv) {
   const app = Elm.Main.embed(elmDiv);
-  app.ports.play.subscribe(idAndNote => {
-    console.log('Will play', idAndNote)
+
+  const player = Player(app.ports.playing.send)
+  player.play()
+
+  app.ports.play.subscribe(notes => {
+    console.log('Will play', notes.map(n => n.letter))
+    notes.forEach(player.queueNote)
   })
 }

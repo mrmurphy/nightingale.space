@@ -6,9 +6,10 @@
     "clean-css-brunch": "~1.8.0",
     "css-brunch": "~1.7.0",
     "javascript-brunch": "~1.8.0",
-    "uglify-js-brunch": "~1.7.0",
     "phoenix": "file:deps/phoenix",
-    "phoenix_html": "file:deps/phoenix_html"
+    "phoenix_html": "file:deps/phoenix_html",
+    "tone": "0.7.1",
+    "uglify-js-brunch": "~1.7.0"
   },
   "devDependencies": {
     "elm-brunch": "0.6.0"
