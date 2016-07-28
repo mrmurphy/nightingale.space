@@ -12,9 +12,9 @@ defmodule Nightingale.TweetsChannel do
   end
 
   def handle_info(:after_join, socket) do
-    broadcast socket, "tweet", %{text: "#ngale C C G G | A A Gq | F F E E | D D Cq ", author: "splodingsocks", pic: "https://pbs.twimg.com/profile_images/631543155909767169/xw4_RWw8.jpg"}
-    broadcast socket, "tweet", %{text: "#ngale G G F F | E E Dq | G G F F | E E Dq", author: "splodingsocks", pic: "https://pbs.twimg.com/profile_images/631543155909767169/xw4_RWw8.jpg"}
-    broadcast socket, "tweet", %{text: "#ngale C C G G | A A Gq | F F E E | D D Cq", author: "splodingsocks", pic: "https://pbs.twimg.com/profile_images/631543155909767169/xw4_RWw8.jpg"}
+    # broadcast socket, "tweet", %{text: "#ngale Ce Ce Ge Ge | Ae Ae Ge _e | Fe Fe Ee Ee | De De Ce _e ", author: "splodingsocks", pic: "https://pbs.twimg.com/profile_images/631543155909767169/xw4_RWw8.jpg"}
+    # broadcast socket, "tweet", %{text: "#ngale Ge Ge Fe Fe | Ee Ee De _e | Ge Ge Fe Fe | Ee Ee De _e", author: "splodingsocks", pic: "https://pbs.twimg.com/profile_images/631543155909767169/xw4_RWw8.jpg"}
+    # broadcast socket, "tweet", %{text: "#ngale Ce Ce Ge Ge | Ae Ae Ge _e | Fe Fe Ee Ee | De De Ce _e", author: "splodingsocks", pic: "https://pbs.twimg.com/profile_images/631543155909767169/xw4_RWw8.jpg"}
     {:noreply, socket}
   end
 

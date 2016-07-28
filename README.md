@@ -51,17 +51,17 @@ example, notes are separated by spaces, and bars by... bars. But that will all b
 parser. It's just there for the sake of readability.
 
 ```
-C C G G | A A Gq | F F E E | D D Cq
-G G F F | E E Dq | G G F F | E E Dq
-C C G G | A A Gq | F F E E | D D Cq
+Ce Ce Ge Ge | Ae Ae Ge _e | Fe Fe Ee Ee | De De Ce _e
+Ge Ge Fe Fe | Ee Ee De _e | Ge Ge Fe Fe | Ee Ee De _e
+Ce Ce Ge Ge | Ae Ae Ge _e | Fe Fe Ee Ee | De De Ce _e
 ```
 
 And, in a more compact format:
 
 ```
-CCGGAAGqFFEEDDCq
-GGFFEEDqGGFFEEDq
-CCGGAAGqFFEEDDCq
+CeCeGeGeAeAeGe_eFeFeEeEeDeDeCe_e
+GeGeFeFeEeEeDe_eGeGeFeFeEeEeDe_e
+CeCeGeGeAeAeGe_eFeFeEeEeDeDeCe_e
 ```
 
 This structure can be captured with the following Regex:
