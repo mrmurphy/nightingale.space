@@ -7,17 +7,16 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Nightingale!</title>
+    <title>Nightingale.space</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
   </head>
 
   <body>
-    <div class="container">
-      <h1>Nightingale.space</h1>
-      <main role="main">
-        <%= render @view_module, @view_template, assigns %>
-      </main>
-    </div> <!-- /container -->
+    <main role="main">
+      <%= render @view_module, @view_template, assigns %>
+    </main>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
