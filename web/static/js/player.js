@@ -47,9 +47,13 @@ export default function player(onPlayNote) {
       let next = getNextNote()
       part.add('+32n', next)
       synth.triggerRelease()
+      // Notify Elm that we're not playing a note now
+      onPlayNote(null)
       return
     }
 
+    // Notify Elm that we're playing a note now
+    onPlayNote(note)
     const [length, tone] = noteToToneNote(note)
     if (note.letter !== '_') {
       console.log('triggering ', [tone, length]);

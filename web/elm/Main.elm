@@ -80,7 +80,10 @@ init =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Phoenix.Socket.listen model.phxSocket PhoenixMsg
+    Sub.batch
+        [ Phoenix.Socket.listen model.phxSocket PhoenixMsg
+        , Sub.map PlayerMsg Player.subscriptions
+        ]
 
 
 

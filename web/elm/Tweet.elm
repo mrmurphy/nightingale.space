@@ -1,10 +1,11 @@
 module Tweet exposing (..)
 
-import Note exposing (Note)
-import Note.Parser exposing (notes)
-import Json.Decode as JD exposing ((:=))
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Json.Decode as JD exposing ((:=))
+import Note exposing (Note)
+import Note.Parser exposing (notes)
+import String
 
 
 type alias Tweet =
@@ -26,13 +27,31 @@ tweetDecoder id =
         (JD.map (notes id) ("text" := JD.string))
 
 
-view : Tweet -> Html msg
-view tweet =
+view : Tweet -> Maybe Note.PortNote -> Html msg
+view tweet playingNote =
     div [ class "tweetWrapper" ]
         [ div [ class "tweetHeader" ]
             [ img [ src tweet.pic, class "avatar" ] []
             , text tweet.author
             ]
         , div [ class "tweetBody" ]
-            [ text tweet.text ]
+            <| case playingNote of
+                Nothing ->
+                    [ text tweet.text ]
+
+                Just note ->
+                    let
+                        beforeHilight =
+                            String.slice 0 note.parseStart tweet.text
+
+                        hilight =
+                            String.slice note.parseStart note.parseEnd tweet.text
+
+                        afterHilight =
+                            String.slice note.parseEnd (String.length tweet.text) tweet.text
+                    in
+                        [ text beforeHilight
+                        , p [ class "playing" ] [ text hilight ]
+                        , text afterHilight
+                        ]
         ]

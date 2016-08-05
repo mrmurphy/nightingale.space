@@ -61,7 +61,24 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         ShowPlaying playing ->
-            { model | playing = playing } ! []
+            let
+                queue =
+                    case playing of
+                        Just note ->
+                            case model.queue of
+                                x :: xs ->
+                                    if x.id /= note.tweetId then
+                                        xs
+                                    else
+                                        model.queue
+
+                                _ ->
+                                    model.queue
+
+                        Nothing ->
+                            model.queue
+            in
+                { model | playing = playing, queue = queue } ! []
 
         GotTweet tweet ->
             { model | queue = List.reverse (tweet :: (List.reverse model.queue)) }
@@ -80,7 +97,7 @@ tweetsView model =
                 text "Waiting for more tweets..."
 
             Just tweet ->
-                Tweet.view tweet
+                Tweet.view tweet model.playing
         ]
 
 
@@ -98,7 +115,7 @@ controlsView model =
                     ]
                 , div [ class "queueInfoGroup" ]
                     [ text "Tweets in queue: "
-                    , text <| toString <| List.length model.queue
+                    , text <| toString <| (List.length model.queue) - 1
                     ]
                 ]
             ]
