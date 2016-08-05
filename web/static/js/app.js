@@ -30,7 +30,6 @@ if (elmDiv) {
   player.play()
 
   app.ports.play.subscribe(notes => {
-    console.log('Will play', notes.map(n => n.letter))
     notes.forEach(player.queueNote)
   })
 }

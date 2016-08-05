@@ -56,7 +56,6 @@ export default function player(onPlayNote) {
     onPlayNote(note)
     const [length, tone] = noteToToneNote(note)
     if (note.letter !== '_') {
-      console.log('triggering ', [tone, length]);
       synth.triggerAttackRelease(tone, length)
     } else {
       synth.triggerRelease()
