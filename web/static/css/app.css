@@ -3,6 +3,145 @@ body {
   background-position: center center;
   background-size: cover;
   overflow: hidden;
-  height: 100vh;
   width: 100vw;
+  color: #37374a;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Lato;
+}
+
+input {
+  background: none;
+  margin-left: .5em;
+  border: none;
+  color: rgba(255,255,255,.5);
+  border-bottom: 1px solid rgba(255,255,255,.5);
+  transition: 300ms;
+}
+
+input:active, input:focus {
+  outline: none;
+  color: rgba(255,255,255,1);
+  border-bottom: 1px solid rgba(255,255,255,1);
+}
+
+.rootContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.headerContainer {
+  height: 30vh;
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tweetsContainer {
+  flex: 1;
+  background: rgba(255,255,255,.2);
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, .1) inset;
+  overflow: hidden;
+}
+
+.controlsContainer {
+  height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+}
+
+.controlsContainer button {
+  padding:0;
+  margin-right: 1em;
+  background: none;
+  border: 0;
+  transition: 300ms;
+}
+
+.controlsContainer button:focus {
+  color: rgba(255,255,255,.5);
+  outline: none;
+}
+
+.controlsContainer button:active {
+  color: rgba(255,255,255,1);
+  outline: none;
+}
+
+.controlsContainer i {
+  font-size: 4em;
+}
+
+.controlWrapper {
+  flex: 1;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  margin: 2rem;
+}
+
+.controlWrapper .group1 {
+  flex: 1;
+}
+
+.controlWrapper .group1 .inputGroup {
+  display: flex;
+}
+
+.controlWrapper .group1 .inputGroup input {
+  flex: 1;
+}
+
+.controlWrapper .group1 .queueInfoGroup {
+  opacity: 0.75;
+}
+
+.footerContainer {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.65;
+  font-weight: 500;
+  color: #37374a;
+}
+
+.footerContainer a {
+  color: #4B6379;
+  margin-left: .25em;
+}
+
+.tweetsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tweetWrapper {
+  font-size: 1.25em;
+  margin: 2rem;
+  flex: 1;
+  max-width: 400px;
+}
+
+.avatar {
+  max-width: 2.5em;
+  border-radius: 2.5em;
+  margin: .25em;
+}
+
+@media (max-width: 410px) {
+  .controlWrapper {
+    flex-direction: column-reverse;
+  }
+  .controlsContainer button {
+    margin-top: 1em;
+    margin-right: 0em;
+  }
 }

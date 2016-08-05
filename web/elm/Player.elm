@@ -1,8 +1,9 @@
-port module Player exposing (view, subscriptions, init, initCmds, update, Model, Msg(GotTweet))
+port module Player exposing (tweetsView, controlsView, subscriptions, init, initCmds, update, Model, Msg(GotTweet))
 
 import Note exposing (PortNote)
 import Tweet exposing (Tweet)
-import Html exposing (div, h1, text, Html, p)
+import Html exposing (..)
+import Html.Attributes exposing (..)
 
 
 -- PORTS
@@ -71,9 +72,34 @@ update msg model =
 -- VIEW
 
 
-view : Model -> Html Msg
-view model =
-    div []
-        [ p [] [ text <| toString model.queue ]
-        , p [] [ text <| toString model.playing ]
+tweetsView : Model -> Html Msg
+tweetsView model =
+    div [ class "tweetsContainer" ]
+        [ case List.head model.queue of
+            Nothing ->
+                text "Waiting for more tweets..."
+
+            Just tweet ->
+                Tweet.view tweet
+        ]
+
+
+controlsView : Model -> Html Msg
+controlsView model =
+    div [ class "controlsContainer" ]
+        [ div [ class "controlWrapper" ]
+            [ button []
+                [ i [ class "fa fa-pause-circle-o" ] []
+                ]
+            , div [ class "group1" ]
+                [ div [ class "inputGroup" ]
+                    [ label [] [ text "Topic: " ]
+                    , input [ value <| "#ngale" ] []
+                    ]
+                , div [ class "queueInfoGroup" ]
+                    [ text "Tweets in queue: "
+                    , text <| toString <| List.length model.queue
+                    ]
+                ]
+            ]
         ]

@@ -1,10 +1,10 @@
 port module Main exposing (..)
 
 import Cmd.Extra exposing (message)
-import Html exposing (Html, h3, div, text, ul, li, input, form, button, br, table, tbody, tr, td)
+import Html exposing (..)
 import Html.App
-import Html.Attributes exposing (type', value)
-import Html.Events exposing (onInput, onSubmit, onClick)
+import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Json.Decode as JD exposing ((:=))
 import Json.Encode as JE
 import Note exposing (Note)
@@ -155,7 +155,21 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ h3 [] [ text "Player:" ]
-        , Html.App.map PlayerMsg <| Player.view model.player
+    div [ class "rootContainer" ]
+        [ div [ class "headerContainer" ]
+            [ img [ class "logo", src "/images/logo.svg" ] []
+            ]
+        , Html.App.map PlayerMsg <| Player.tweetsView model.player
+        , Html.App.map PlayerMsg <| Player.controlsView model.player
+        , div [ class "footerContainer" ]
+            [ text "nightingale.space by "
+            , a [ href "https://twitter.com/splodingsocks" ]
+                [ text " @splodingsocks" ]
+            ]
         ]
+
+
+
+-- [ h3 [] [ text "Player:" ]
+-- , Html.App.map PlayerMsg <| Player.view model.player
+-- ]
