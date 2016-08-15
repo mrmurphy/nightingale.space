@@ -115,7 +115,16 @@ controlsView model =
                     ]
                 , div [ class "queueInfoGroup" ]
                     [ text "Tweets in queue: "
-                    , text <| toString <| (List.length model.queue) - 1
+                    , text
+                        <| toString
+                        <| let
+                            count =
+                                (List.length model.queue) - 1
+                           in
+                            if count == -1 then
+                                0
+                            else
+                                count
                     ]
                 ]
             ]
