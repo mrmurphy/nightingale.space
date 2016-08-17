@@ -52,54 +52,9 @@ input:active, input:focus {
   height: 30vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   font-size: 1.5em;
-}
-
-.controlsContainer button {
-  padding:0;
-  margin-right: 4em;
-  background: none;
-  border: 0;
-  transition: 300ms;
-}
-
-.controlsContainer button:focus {
-  color: rgba(255,255,255,.5);
-  outline: none;
-}
-
-.controlsContainer button:active {
-  color: rgba(255,255,255,1);
-  outline: none;
-}
-
-.controlsContainer i {
-  font-size: 4em;
-}
-
-.controlWrapper {
-  flex: 1;
-  max-width: 400px;
-  display: flex;
-  align-items: center;
-  margin: 2rem;
-}
-
-.controlWrapper .group1 {
-  flex: 1;
-}
-
-.controlWrapper .group1 .inputGroup {
-  display: flex;
-}
-
-.controlWrapper .group1 .inputGroup input {
-  flex: 1;
-}
-
-.controlWrapper .group1 .queueInfoGroup {
-  opacity: 0.75;
+  opacity: 0.65;
 }
 
 .footerContainer {
@@ -107,9 +62,10 @@ input:active, input:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.65;
+  opacity: 0.35;
   font-weight: 500;
   color: #37374a;
+  font-size: 10px;
 }
 
 .footerContainer a {

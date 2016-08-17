@@ -74,10 +74,6 @@ export default function player(onPlayNote) {
     play() {
       Tone.Transport.start()
       Tone.Transport.bpm.value = 80
-    },
-
-    pause() {
-      Tone.Transport.stop()
     }
   }
 

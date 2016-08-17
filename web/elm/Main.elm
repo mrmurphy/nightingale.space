@@ -170,9 +170,3 @@ view model =
                 [ text " @splodingsocks" ]
             ]
         ]
-
-
-
--- [ h3 [] [ text "Player:" ]
--- , Html.App.map PlayerMsg <| Player.view model.player
--- ]
