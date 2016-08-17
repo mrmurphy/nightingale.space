@@ -16,8 +16,8 @@ notNoteRegex =
     "[^a-gA-G_]*"
 
 
-hashtagRegex =
-    "#ngale"
+hashOrMentionRegex =
+    "[@|#]\\S+"
 
 
 parse : Int -> Combine.Context -> ( Maybe Note, Combine.Context )
@@ -25,7 +25,7 @@ parse tweetId context =
     let
         noteStrParser : Combine.Parser String
         noteStrParser =
-            (Combine.map (always "") (Combine.regex hashtagRegex))
+            (Combine.map (always "") (Combine.regex hashOrMentionRegex))
                 <|> (Combine.regex noteRegex)
                 <|> (Combine.regex notNoteRegex)
 

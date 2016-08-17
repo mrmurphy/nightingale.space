@@ -109,9 +109,12 @@ controlsView model =
                 [ i [ class "fa fa-pause-circle-o" ] []
                 ]
             , div [ class "group1" ]
-                [ div [ class "inputGroup" ]
-                    [ label [] [ text "Topic: " ]
-                    , input [ value <| "#ngale" ] []
+                [ div [ class "topics" ]
+                    [ text "Listening for tweets to:"
+                    , ul []
+                        [ li [] [ text "@nightingalespc" ]
+                        , li [] [ text "#elmconf" ]
+                        ]
                     ]
                 , div [ class "queueInfoGroup" ]
                     [ text "Tweets in queue: "
