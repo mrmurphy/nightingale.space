@@ -4,12 +4,19 @@ import Note exposing (PortNote)
 import Tweet exposing (Tweet)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (onClick)
 
 
 -- PORTS
 
 
 port play : List PortNote -> Cmd msg
+
+
+port pause : () -> Cmd msg
+
+
+port resume : () -> Cmd msg
 
 
 port playing : (Maybe PortNote -> msg) -> Sub msg
@@ -22,6 +29,7 @@ port playing : (Maybe PortNote -> msg) -> Sub msg
 type Msg
     = ShowPlaying (Maybe PortNote)
     | GotTweet Tweet
+    | SetPause Bool
 
 
 
@@ -31,6 +39,7 @@ type Msg
 type alias Model =
     { playing : Maybe PortNote
     , queue : List Tweet
+    , isPaused : Bool
     }
 
 
@@ -38,6 +47,7 @@ init : Model
 init =
     { playing = Nothing
     , queue = []
+    , isPaused = False
     }
 
 
@@ -84,6 +94,16 @@ update msg model =
             { model | queue = List.reverse (tweet :: (List.reverse model.queue)) }
                 ! [ play (List.map Note.toPortNote tweet.notes) ]
 
+        SetPause isPaused ->
+            { model | isPaused = isPaused }
+                ! [ case isPaused of
+                        True ->
+                            pause ()
+
+                        False ->
+                            resume ()
+                  ]
+
 
 
 -- VIEW
@@ -105,9 +125,18 @@ controlsView : Model -> Html Msg
 controlsView model =
     div [ class "controlsContainer" ]
         [ div [ class "controlWrapper" ]
-            [ button []
-                [ i [ class "fa fa-pause-circle-o" ] []
-                ]
+            [ button [ onClick (SetPause (not model.isPaused)) ]
+                (let
+                    className =
+                        case model.isPaused of
+                            True ->
+                                "fa fa-play-circle-o"
+
+                            False ->
+                                "fa fa-pause-circle-o"
+                 in
+                    [ i [ class className ] [] ]
+                )
             , div [ class "group1" ]
                 [ div [ class "topics" ]
                     [ text "Listening for tweets to:"

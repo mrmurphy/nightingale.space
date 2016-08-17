@@ -32,4 +32,7 @@ if (elmDiv) {
   app.ports.play.subscribe(notes => {
     notes.forEach(player.queueNote)
   })
+
+  app.ports.pause.subscribe(player.pause)
+  app.ports.resume.subscribe(player.play)
 }
