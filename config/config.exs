@@ -9,7 +9,7 @@ use Mix.Config
 config :nightingale, Nightingale.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
-  secret_key_base: "j2E8xxtGolLN4B21DeXDasLMYeHRZqZ3V87woysKQXVwl4rUpdoWKCAiyjbJaz8u",
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
   render_errors: [accepts: ~w(html json)],
   pubsub: [name: Nightingale.PubSub,
            adapter: Phoenix.PubSub.PG2]
