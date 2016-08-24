@@ -18,21 +18,13 @@ defmodule Nightingale.Web do
 
   def model do
     quote do
-      use Ecto.Schema
-
-      import Ecto
-      import Ecto.Changeset
-      import Ecto.Query, only: [from: 1, from: 2]
+      # Define common model functionality
     end
   end
 
   def controller do
     quote do
       use Phoenix.Controller
-
-      alias Nightingale.Repo
-      import Ecto
-      import Ecto.Query, only: [from: 1, from: 2]
 
       import Nightingale.Router.Helpers
       import Nightingale.Gettext
@@ -65,9 +57,6 @@ defmodule Nightingale.Web do
     quote do
       use Phoenix.Channel
 
-      alias Nightingale.Repo
-      import Ecto
-      import Ecto.Query, only: [from: 1, from: 2]
       import Nightingale.Gettext
     end
   end

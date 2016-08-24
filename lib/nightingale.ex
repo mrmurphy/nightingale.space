@@ -9,8 +9,6 @@ defmodule Nightingale do
     children = [
       # Start the endpoint when the application starts
       supervisor(Nightingale.Endpoint, []),
-      # Start the Ecto repository
-      supervisor(Nightingale.Repo, []),
       # Here you could define other workers and supervisors as children
       # worker(Nightingale.Worker, [arg1, arg2, arg3]),
     ]

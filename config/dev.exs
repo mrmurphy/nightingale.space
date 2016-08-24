@@ -32,15 +32,6 @@ config :logger, :console, format: "[$level] $message\n"
 # and calculating stacktraces is usually expensive.
 config :phoenix, :stacktrace_depth, 20
 
-# Configure your database
-config :nightingale, Nightingale.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "nightingale_dev",
-  hostname: "localhost",
-  pool_size: 10
-
 if File.exists?("config/dev.secret.exs") do
   import_config "dev.secret.exs"
 end
