@@ -1,6 +1,5 @@
 defmodule Nightingale.TweetsChannel do
   use Nightingale.Web, :channel
-  import Twitter
 
   def join("tweets:lobby", payload, socket) do
     if authorized?(payload) do
