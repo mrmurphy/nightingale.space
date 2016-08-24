@@ -69,6 +69,6 @@ config :extwitter, :oauth, [
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
-if exists?("config/prod.secret.exs") do
+if File.exists?("config/prod.secret.exs") do
   import_config "prod.secret.exs"
 end
