@@ -24,7 +24,8 @@ import Player from './player'
 const elmDiv = document.querySelector('#elm-target');
 
 if (elmDiv) {
-  const app = Elm.Main.embed(elmDiv);
+  var websocketUrl = 'ws://' + window.location.hostname + '/socket/websocket'
+  const app = Elm.Main.embed(elmDiv, {websocketUrl: websocketUrl});
 
   const player = Player(app.ports.playing.send)
   player.play()

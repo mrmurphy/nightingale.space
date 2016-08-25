@@ -19,9 +19,9 @@ import Tweet exposing (Tweet, tweetDecoder)
 -- MAIN
 
 
-main : Program Never
+main : Program Flags
 main =
-    Html.App.program
+    Html.App.programWithFlags
         { init = init
         , update = update
         , view = view
@@ -57,21 +57,25 @@ type alias Model =
     }
 
 
-initPhxSocket : Phoenix.Socket.Socket Msg
-initPhxSocket =
-    Phoenix.Socket.init socketServer
+initPhxSocket : Flags -> Phoenix.Socket.Socket Msg
+initPhxSocket flags =
+    Phoenix.Socket.init flags.websocketUrl
         |> Phoenix.Socket.withDebug
         |> Phoenix.Socket.on "tweet" "tweets:lobby" ReceiveTweet
 
 
-initModel : Model
-initModel =
-    Model Player.init initPhxSocket
+initModel : Flags -> Model
+initModel flags =
+    Model Player.init (initPhxSocket flags)
 
 
-init : ( Model, Cmd Msg )
-init =
-    initModel ! [ message JoinChannel, Player.initCmds ]
+type alias Flags =
+    { websocketUrl : String }
+
+
+init : Flags -> ( Model, Cmd Msg )
+init flags =
+    (initModel flags) ! [ message JoinChannel, Player.initCmds ]
 
 
 
