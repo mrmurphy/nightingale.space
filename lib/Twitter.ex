@@ -10,13 +10,16 @@ defmodule Twitter do
     end
   end
 
-  def listener(callback) do
-    spawn reader(self)
+  def listener(callback, readerPID) do
+    readerPID = case readerPID do
+      Nil -> spawn reader(self)
+      other -> other
+    end
     receive do
       {:tweet, msg} -> Kernel.apply(callback, [msg])
       IO.puts "Got tweet: " <> msg.text
-      :timer.sleep 2500
-      listener(callback)
+      :timer.sleep 500
+      listener(callback, readerPID)
     end
   end
 end

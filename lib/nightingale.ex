@@ -18,7 +18,7 @@ defmodule Nightingale do
     opts = [strategy: :one_for_one, name: Nightingale.Supervisor]
     Supervisor.start_link(children, opts)
 
-    Twitter.listener &Nightingale.TweetsChannel.broadcast_tweet/1
+    Twitter.listener &Nightingale.TweetsChannel.broadcast_tweet/1, Nil
   end
 
   # Tell Phoenix to update the endpoint configuration
