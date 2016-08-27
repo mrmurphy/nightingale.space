@@ -13,7 +13,7 @@ noteRegex =
 
 
 notNoteRegex =
-    "[^a-gA-G_]*"
+    "[^a-gA-G_@#]*"
 
 
 hashOrMentionRegex =

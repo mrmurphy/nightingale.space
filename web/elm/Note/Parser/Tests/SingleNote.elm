@@ -96,7 +96,7 @@ withIgnorables =
 
 
 withHashtag =
-    ( "#ngale A+t"
+    ( "#ngale A+t #ngale"
     , [ Note
             { tweetId = 0
             , letter = "A"
@@ -105,6 +105,21 @@ withHashtag =
             , length = "t"
             , parseStart = 7
             , parseEnd = 10
+            }
+      ]
+    )
+
+
+withMention =
+    ( "A+t @NightingaleSpc"
+    , [ Note
+            { tweetId = 0
+            , letter = "A"
+            , accidental = Just Sharp
+            , octave = 3
+            , length = "t"
+            , parseStart = 0
+            , parseEnd = 3
             }
       ]
     )
@@ -125,4 +140,5 @@ tests =
         , makeTest "With length and octave" lengthAndOctave
         , makeTest "With other characters" withIgnorables
         , makeTest "With hashtag" withHashtag
+        , makeTest "With mention" withMention
         ]
