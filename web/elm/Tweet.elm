@@ -41,17 +41,17 @@ view tweet playingNote =
 
                 Just note ->
                     let
-                        beforeHilight =
+                        beforeHighlight =
                             String.slice 0 note.parseStart tweet.text
 
-                        hilight =
+                        highlight =
                             String.slice note.parseStart note.parseEnd tweet.text
 
-                        afterHilight =
+                        afterHighlight =
                             String.slice note.parseEnd (String.length tweet.text) tweet.text
                     in
-                        [ text beforeHilight
-                        , p [ class "playing" ] [ text hilight ]
-                        , text afterHilight
+                        [ text beforeHighlight
+                        , p [ class "playing" ] [ text highlight ]
+                        , text afterHighlight
                         ]
         ]
